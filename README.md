@@ -16,14 +16,10 @@ write.csv(nascar, file='races.csv')
 write.csv(attr(nascar, 'drivers'), file='drivers.csv')
 ```
 
-Then do the following in python:
-
-```python
-# TODO
-```
+I then joined the data into `nascar.txt` using `extract.py`. This file contains all races, with each race on its own line. The order follows first place, second place, etc.
 
 I do not own any of the data presented and can remove the data uploaded to this repository upon request.
 
 # Citations
 
-[1] S. Negahban, S. Oh, and D. Shah, “Rank centrality: Ranking from pair-wise comparisons,” arXiv.org, https://arxiv.org/abs/1209.1688 (accessed Dec. 29, 2024). 
+[1] S. Negahban, S. Oh, and D. Shah, “Rank centrality: Ranking from pair-wise comparisons,” arXiv.org, https://arxiv.org/abs/1209.1688 (accessed Dec. 29, 2024).
