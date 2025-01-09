@@ -2,6 +2,18 @@
 
 Based on Negahban et al.'s paper ["Rank centrality: Ranking from pair-wise comparisons"](https://arxiv.org/abs/1209.1688).
 
+## Execution
+
+Create a virtual environment and install the required packages:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+Then, simply run the python test files: `python3 nascar.py`.
+
 ## Dataset
 
 The test dataset here is the same 2002 Nascar dataset used in Hunter 2002:
