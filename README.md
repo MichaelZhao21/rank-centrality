@@ -14,6 +14,12 @@ python3 -m pip install -r requirements.txt
 
 Then, simply run the python test files: `python3 nascar.py`.
 
+To check if the algorithm is correct, you can reference the actual rankings for the 2002 NASCAR season: https://www.driveraverages.com/nascar/year.php?yr_id=2002.
+
+### Custom Dataset
+
+To use your own dataset, prepare a python file similar to `nascar.py`. Note the format that we want the input rankings or pairwise comparison data in (see `rc.py`). Then, simply import the functions from `rc.py`. You will need to adjust the regularization parameter (`init` parameter of `rank_centrality` function). This is because when the graph is less connected, the stable distribution will not be as accurate. There are cases where the ranking order is flipped, but that is fixable by adjusting the `init` parameter. Generally, the less connected the graph, the higher the regularization parameter will need to be. Note that the default for this value is $10e-5$.
+
 ## Dataset
 
 The test dataset here is the same 2002 Nascar dataset used in Hunter 2002:

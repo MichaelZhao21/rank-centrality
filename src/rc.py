@@ -109,7 +109,7 @@ def borda_count(comparisons: dict[tuple, int]) -> dict[any, float]:
     return borda_counts
 
 
-def rank_centrality(comparisons: dict[tuple, int]) -> dict[any, float]:
+def rank_centrality(comparisons: dict[tuple, int], init = 10e-5) -> dict[any, float]:
     """
     Computes the rank centrality scores of all items passed in. The comparisons dictionary
     contains key (i, j), where i beats j and value is the number of times i beats j. The
@@ -133,7 +133,7 @@ def rank_centrality(comparisons: dict[tuple, int]) -> dict[any, float]:
     n = len(out_degree)
     
     # Create probability transition matrix
-    p = [[10e-5 for _ in range(n)] for _ in range(n)]
+    p = [[init for _ in range(n)] for _ in range(n)]
     for i in range(n):
         for j in range(n):
             if i == j:
@@ -141,7 +141,7 @@ def rank_centrality(comparisons: dict[tuple, int]) -> dict[any, float]:
             if (i, j) in comparisons:
                 p[i][j] = comparisons[(i, j)] / (comparisons[(i, j)] + comparisons[(j, i)]) / d
     for i in range(n):
-        p[i][i] = 1 - sum(p[i]) - 10e-5
+        p[i][i] = 1 - sum(p[i]) - init
 
     # Get left eigenvector of p
     w, v = eig(p, left=True, right=False)
@@ -165,14 +165,16 @@ if __name__ == "__main__":
     comps = ranks_to_comparisons(rankings)
     item_index, comps = to_indexed_comparisons(comps)
 
-    bc_scores = borda_count(comps)
-    rc_scores = rank_centrality(comps)
+    bc_scores = unindex_dict_keys(borda_count(comps), item_index)
+    rc_scores = unindex_dict_keys(rank_centrality(comps), item_index)
     sorted_bc_scores = sorted(bc_scores.items(), key=lambda x: x[1], reverse=True)
     sorted_rc_scores = sorted(rc_scores.items(), key=lambda x: x[1], reverse=True)
 
     print("Borda count scores:")
-    print(sorted_bc_scores)
+    for i in sorted_bc_scores:
+        print(f'{i[0]}', i[1])
+    print()
 
     print("Rank centrality scores:")
-    print(sorted_rc_scores)
-
+    for i in sorted_rc_scores:
+        print(f'{i[0]}', i[1])
